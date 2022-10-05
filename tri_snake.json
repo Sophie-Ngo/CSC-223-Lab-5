@@ -1,0 +1,53 @@
+{
+	"Figure":
+	{
+		"Description": "Three triangles chained together by vertices, forming a 'snake' of triangles.",
+		"Points":
+		[
+			{ 
+				"name": "A",
+			 	"x": 0,
+				"y": 0
+			},
+			{ 
+				"name": "B",
+			 	"x": 0,
+				"y": 2
+			},
+			{ 
+				"name": "C",
+			 	"x": 1,
+				"y": 1
+			},
+			{ 
+				"name": "D",
+			 	"x": 2,
+				"y": 0
+			},
+			{ 
+				"name": "E",
+			 	"x": 2,
+				"y": 2
+			},
+			{ 
+				"name": "F",
+			 	"x": 3,
+				"y": 1
+			},
+			{ 
+				"name": "G",
+			 	"x": 4,
+				"y": 0
+			}
+		],
+		"Segments":
+		[
+			{ "A" : ["B","C"]},
+			{ "B" : ["C"]},
+			{ "C" : ["D","E"]},
+			{ "D" : ["E","F","G"]},
+			{ "F" : ["G"]}
+		]
+
+	}
+}

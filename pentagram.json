@@ -1,0 +1,45 @@
+{
+	"Figure": {
+		"Description": "Upside-down star made of five points.",
+		"Points": [
+			{
+				"name": "A",
+				"x": 2,
+				"y": 0
+			},
+
+			{
+				"name": "B",
+				"x": 0,
+				"y": 4
+			},
+
+			{
+				"name": "C",
+				"x": 4,
+				"y": 1
+			},
+
+			{
+				"name": "D",
+				"x": 0,
+				"y": 1
+			},
+
+			{
+				"name": "E",
+				"x": 4,
+				"y": 4
+			}
+		],
+
+		"Segments": 
+		[
+			{ "A": [ "B", "E" ] },
+			{ "B": [ "A", "C" ] },
+			{ "C": [ "D", "E" ] },
+			{ "D": [ "E", "C" ] },
+			{ "E": [ "D", "A" ] }
+		]
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"Figure":
+	{
+		"Description": "A bowtie shape formed by four points that 'twist' over each other.",
+		"Points":
+		[
+			{ 
+				"name": "A",
+			 	"x": 0,
+				"y": 0
+			},
+			{ 
+				"name": "B",
+			 	"x": 0,
+				"y": 2
+			},	
+			{ 
+				"name": "C",
+			 	"x": 2,
+				"y": 0
+			},
+			{ 
+				"name": "D",
+			 	"x": 2,
+				"y": 2
+			}
+		],
+		"Segments":
+		[
+			{ "A" : ["B","D"]},
+			{ "B" : ["C"]},
+			{ "C": [ "D" ] }
+		]
+
+	}
+}

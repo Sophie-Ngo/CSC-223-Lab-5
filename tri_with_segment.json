@@ -1,0 +1,36 @@
+{
+	"Figure":
+	{
+		"Description": "A triangle with a line segment sticking out from one of its vertices.",
+		"Points":
+		[
+			{ 
+				"name": "A",
+			 	"x": 0,
+				"y": 0
+			},
+			{ 
+				"name": "B",
+			 	"x": 1,
+				"y": 1
+			},	
+			{ 
+				"name": "C",
+			 	"x": 2,
+				"y": 0
+			},
+			{ 
+				"name": "D",
+			 	"x": 3,
+				"y": 0
+			}
+		],
+		"Segments":
+		[
+			{ "A" : ["B","C"]},
+			{ "B" : ["C"]},
+			{ "C" : ["D"]}
+		]
+
+	}
+}
