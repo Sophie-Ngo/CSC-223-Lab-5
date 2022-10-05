@@ -18,6 +18,13 @@ import input.components.segment.SegmentNodeDatabase;
 //
 public class UnparseVisitor implements ComponentNodeVisitor
 {
+	/**
+	 * Unparses a FigureNode in the form of a StringBuilder that contains the completed
+	 * parsed FigureNode.
+	 * This therefore includes all of the unparsed objects that a FigureNode holds.
+	 * So, the resulting StringBuilder also contains an unparsed PointNodeDatabase and
+	 * SegmentNodeDatabase. 
+	 */
 	@Override
 	public Object visitFigureNode(FigureNode node, Object o)
 	{
@@ -27,16 +34,35 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		StringBuilder sb = pair.getKey();
 		int level = pair.getValue();
 
-        // TODO
+		// Begin to build the string of the JSON file 
+		//	Figure:
+		// 		{	
+		//		Description: "whatever the description is",
+		//		Points:
+        sb.append("    ".repeat(level)).append("Figure\n");
+        sb.append("    ".repeat(level)).append("{\n");
+        sb.append("    ".repeat(level + 1)).append("Description: ").append(node.getDescription()).append("\n");
+        sb.append("    ".repeat(level + 1)).append("Points:\n");
+        
+        // now, delegate the unparsing of the PointNodeDatabase to that class' visit method. The result is appended to this StringBuilder.
+        node.getPointsDatabase().accept(this, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, level + 1));
 
-        return null;
+        sb.append("    ".repeat(level + 1)).append("Segments:\n");
+        // again, delegate the unparsing of the SegmentNodeDatabase to that class' visit method. The result is appended to this StringBuilder.
+        node.getSegments().accept(this, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, level + 1));
+
+        sb.append("    ".repeat(level)).append("}\n");
+        // result is completed StringBuilder
+        return pair.getKey();
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public Object visitSegmentDatabaseNode(SegmentNodeDatabase node, Object o)
 	{
-        // TODO
-		
+
         return null;
 	}
 
@@ -53,7 +79,7 @@ public class UnparseVisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitPointNodeDatabase(PointNodeDatabase node, Object o)
 	{
-        // TODO
+        
 		
         return null;
 	}
