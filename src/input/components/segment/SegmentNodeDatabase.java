@@ -31,11 +31,6 @@ public class SegmentNodeDatabase implements ComponentNode {
     public SegmentNodeDatabase(Map<PointNode, Set<PointNode>> adjLists) {
         this._adjLists = adjLists;
     }
-    
-    
-    public Map<PointNode, Set<PointNode>> getAdjLists(){
-    	return _adjLists;
-    }
 
     /**
      * @return the number of edges in the SegmentNodeDatabase
@@ -129,6 +124,13 @@ public class SegmentNodeDatabase implements ComponentNode {
         return this._adjLists.entrySet();
     }
 
+    public Set<Entry<PointNode, Set<PointNode>>> uniqueEntrySet() {
+        SegmentNodeDatabase db  = new SegmentNodeDatabase();
+        for (SegmentNode segment: this.asUniqueSegmentList()) {
+            db.addDirectedEdge(segment.getPoint1(), segment.getPoint2());
+        }
+        return db.entrySet();
+    }
     /**
      * TODO
      * 
