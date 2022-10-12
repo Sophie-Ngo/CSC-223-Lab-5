@@ -112,6 +112,9 @@ public class SegmentNodeDatabase implements ComponentNode {
         return new ArrayList<>(set);
     }
 
+    /**
+     * Accept the call to be visited by calling the 
+     */
     @Override
     public Object accept(ComponentNodeVisitor visitor, Object o) {
     	return visitor.visitSegmentDatabaseNode(this, o);
