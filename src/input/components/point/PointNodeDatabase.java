@@ -117,4 +117,8 @@ public class PointNodeDatabase implements ComponentNode {
 
         sb.append("    ".repeat(level)).append("}\n");
     }
+
+    public Set<PointNode> getPoints() {
+        return this._points;
+    }
 }
