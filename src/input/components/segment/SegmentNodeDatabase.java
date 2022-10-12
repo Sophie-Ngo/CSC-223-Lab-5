@@ -123,6 +123,13 @@ public class SegmentNodeDatabase implements ComponentNode {
     }
     
     /**
+     * Generate an entry set of adjacency lists.
+     */
+    public Set<Entry<PointNode, Set<PointNode>>> entrySet() {
+        return this._adjLists.entrySet();
+    }
+
+    /**
      * TODO
      * 
      */

@@ -117,6 +117,7 @@ public class PointNodeDatabase implements ComponentNode {
      * 
      * Do not delete
      */
+
 //    @Override
 //    public void unparse(StringBuilder sb, int level) {
 //        sb.append("    ".repeat(level)).append("{\n");
