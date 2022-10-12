@@ -37,6 +37,11 @@ public class PointNodeDatabase implements ComponentNode {
 
     }
 
+    public Set<PointNode> getPoints()
+    {
+    	return _points;
+    }
+    
     /**
      * @param node to put into database
      */

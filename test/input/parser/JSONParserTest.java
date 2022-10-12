@@ -34,6 +34,7 @@ class JSONParserTest
 		assertThrows(ParseException.class, () -> { parser.parse("{}"); });
 	}
 
+	
 	/**
 	 *   /\
 	 *  /__\ a triangle! 

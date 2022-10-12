@@ -1,6 +1,7 @@
 package input.components.point;
 
 import input.components.ComponentNode;
+import input.visitor.ComponentNodeVisitor;
 import utilities.math.MathUtilities;
 
 /**
@@ -91,9 +92,15 @@ public class PointNode implements ComponentNode {
     public String toString() {
         return this.getName() + "(" + this.getX() + ", " + this.getY() + ")";
     }
-
+    
     @Override
-    public void unparse(StringBuilder sb, int level) {
-        sb.append("    ".repeat(level)).append(this).append("\n");
+    public Object accept(ComponentNodeVisitor visitor, Object o)
+    {
+    	return visitor.visitPointNode(this, o);
     }
+
+//    @Override
+//    public void unparse(StringBuilder sb, int level) {
+//        sb.append("    ".repeat(level)).append(this).append("\n");
+//    }
 }

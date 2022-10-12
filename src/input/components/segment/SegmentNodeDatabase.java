@@ -2,6 +2,7 @@ package input.components.segment;
 
 import input.components.ComponentNode;
 import input.components.point.PointNode;
+import input.visitor.ComponentNodeVisitor;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -29,6 +30,11 @@ public class SegmentNodeDatabase implements ComponentNode {
      */
     public SegmentNodeDatabase(Map<PointNode, Set<PointNode>> adjLists) {
         this._adjLists = adjLists;
+    }
+    
+    
+    public Map<PointNode, Set<PointNode>> getAdjLists(){
+    	return _adjLists;
     }
 
     /**
@@ -111,26 +117,31 @@ public class SegmentNodeDatabase implements ComponentNode {
         return new ArrayList<>(set);
     }
 
+    @Override
+    public Object accept(ComponentNodeVisitor visitor, Object o) {
+    	return visitor.visitSegmentDatabaseNode(this, o);
+    }
+    
     /**
      * TODO
      * 
      */
-    @Override
-    public void unparse(StringBuilder sb, int level) {
-        sb.append("    ".repeat(level)).append("{\n");
-
-        for (Entry<PointNode, Set<PointNode>> entry : this._adjLists.entrySet()) {
-
-            PointNode a = entry.getKey();
-            sb.append("    ".repeat(level + 1)).append(a.getName()).append(" :");
-
-            for (PointNode b : entry.getValue()) {
-                sb.append(" ").append(b.getName());
-            }
-
-            sb.append("\n");
-        }
-
-        sb.append("    ".repeat(level)).append("}\n");
-    }
+//    @Override
+//    public void unparse(StringBuilder sb, int level) {
+//        sb.append("    ".repeat(level)).append("{\n");
+//
+//        for (Entry<PointNode, Set<PointNode>> entry : this._adjLists.entrySet()) {
+//
+//            PointNode a = entry.getKey();
+//            sb.append("    ".repeat(level + 1)).append(a.getName()).append(" :");
+//
+//            for (PointNode b : entry.getValue()) {
+//                sb.append(" ").append(b.getName());
+//            }
+//
+//            sb.append("\n");
+//        }
+//
+//        sb.append("    ".repeat(level)).append("}\n");
+//    }
 }
