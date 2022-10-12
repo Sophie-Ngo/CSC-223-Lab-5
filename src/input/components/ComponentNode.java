@@ -1,11 +1,9 @@
 package input.components;
 
+import input.visitor.ComponentNodeVisitor;
+
 public interface ComponentNode
 {
-	/**
-	 * TODO
-	 * @param sb
-	 * @param level
-	 */
-	void unparse(StringBuilder sb, int level);
+	Object accept(ComponentNodeVisitor visitor, Object o);
+
 }

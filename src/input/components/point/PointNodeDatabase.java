@@ -1,6 +1,7 @@
 package input.components.point;
 
 import input.components.ComponentNode;
+import input.visitor.ComponentNodeVisitor;
 import utilities.math.MathUtilities;
 
 import java.util.LinkedHashSet;
@@ -102,23 +103,24 @@ public class PointNodeDatabase implements ComponentNode {
 
     }
 
-
+    @Override
+    public Object accept(ComponentNodeVisitor visitor, Object o) {
+    	return visitor.visitPointNodeDatabase(this, o);
+    }
+    
     /**
      * 
-     * TODO
+     * Do not delete
      */
-    @Override
-    public void unparse(StringBuilder sb, int level) {
-        sb.append("    ".repeat(level)).append("{\n");
 
-        for (PointNode p : this._points) {
-            p.unparse(sb, level + 1);
-        }
-
-        sb.append("    ".repeat(level)).append("}\n");
-    }
-
-    public Set<PointNode> getPoints() {
-        return this._points;
-    }
+//    @Override
+//    public void unparse(StringBuilder sb, int level) {
+//        sb.append("    ".repeat(level)).append("{\n");
+//
+//        for (PointNode p : this._points) {
+//            p.unparse(sb, level + 1);
+//        }
+//
+//        sb.append("    ".repeat(level)).append("}\n");
+//    }
 }
