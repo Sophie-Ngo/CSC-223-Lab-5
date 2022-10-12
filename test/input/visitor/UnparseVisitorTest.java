@@ -11,7 +11,7 @@ import input.components.FigureNode;
 
 public class UnparseVisitorTest {
 	@Test
-	void test_visitPointNode_normal()
+	void test_visitPointNode()
 	{
 		PointNode node = new PointNode("A", 1.0, 2.0);
 		UnparseVisitor visitor = new UnparseVisitor();
@@ -26,7 +26,47 @@ public class UnparseVisitorTest {
 	}
 	
 	@Test
-	void test_visitFigureNode_normal()
+	void test_visitPointDatabase()
+	{
+		UnparseVisitor visitor = new UnparseVisitor();
+		StringBuilder sb = new StringBuilder();
+		AbstractMap.SimpleEntry<StringBuilder, Integer> o = new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 1);
+		PointNodeDatabase pdb = new PointNodeDatabase();
+		pdb.put(new PointNode(0.0, 0.0));
+		pdb.put(new PointNode(1.0, 1.0));
+		pdb.put(new PointNode(2.0, 2.0));
+		
+		visitor.visitPointNodeDatabase(pdb, o);
+		
+		String expected = "    " + "{\n" +
+				"    " + new PointNode(0.0, 0.0) + "\n" +
+				"    " + new PointNode(1.0, 1.0) + "\n" +
+				"    " + new PointNode(2.0, 2.0) + "\n" +
+				"    " + "}\n" ;
+		String actual = sb.toString();
+		assertEquals(expected, actual);
+	}
+	
+	
+	@Test
+	void test_visitSegmentDatabase()
+	{
+		UnparseVisitor visitor = new UnparseVisitor();
+		StringBuilder sb = new StringBuilder();
+		AbstractMap.SimpleEntry<StringBuilder, Integer> o = new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 1);
+		SegmentNodeDatabase sdb = new SegmentNodeDatabase();
+		sdb.addUndirectedEdge(new PointNode("A", 0.0, 0.0), new PointNode("B", 1.0, 1.0));
+		
+		visitor.visitSegmentDatabaseNode(sdb, o);
+		
+		// TODO
+		// String expected = string without redundanct
+		String actual = sb.toString();
+		//assertEquals(expected, actual);
+	}
+	
+	@Test
+	void test_visitFigureNode()
 	{
 		// create all data of the FigureNode
 		String desc = "A description.";

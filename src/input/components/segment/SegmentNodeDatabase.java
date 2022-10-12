@@ -31,11 +31,6 @@ public class SegmentNodeDatabase implements ComponentNode {
     public SegmentNodeDatabase(Map<PointNode, Set<PointNode>> adjLists) {
         this._adjLists = adjLists;
     }
-    
-    
-    public Map<PointNode, Set<PointNode>> getAdjLists(){
-    	return _adjLists;
-    }
 
     /**
      * @return the number of edges in the SegmentNodeDatabase
@@ -117,6 +112,9 @@ public class SegmentNodeDatabase implements ComponentNode {
         return new ArrayList<>(set);
     }
 
+    /**
+     * Accept the call to be visited by calling the 
+     */
     @Override
     public Object accept(ComponentNodeVisitor visitor, Object o) {
     	return visitor.visitSegmentDatabaseNode(this, o);
