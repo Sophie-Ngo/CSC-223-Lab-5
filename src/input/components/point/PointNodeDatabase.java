@@ -108,6 +108,12 @@ public class PointNodeDatabase implements ComponentNode {
 
     }
 
+    public PointNode getPoint(String name) {
+        for (PointNode p: this._points) {
+            if (p.getName().equals(name)) return p;
+        }
+        return null;
+    }
     @Override
     public Object accept(ComponentNodeVisitor visitor, Object o) {
     	return visitor.visitPointNodeDatabase(this, o);
