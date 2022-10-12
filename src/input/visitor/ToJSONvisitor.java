@@ -46,7 +46,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
     public Object visitSegmentDatabaseNode(SegmentNodeDatabase node, Object o) {
         JSONArray arr = new JSONArray();
 
-        for (Map.Entry<PointNode, Set<PointNode>> entry: node.entrySet()) {
+        for (Map.Entry<PointNode, Set<PointNode>> entry: node.uniqueEntrySet()) {
             JSONObject obj = new JSONObject();
 
             JSONArray list = new JSONArray();
