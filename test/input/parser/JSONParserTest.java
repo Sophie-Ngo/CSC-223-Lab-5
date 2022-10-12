@@ -1,23 +1,49 @@
 package input.parser;
 
 
+import input.builder.DefaultBuilder;
+import input.builder.GeometryBuilder;
 import input.components.ComponentNode;
 import input.components.FigureNode;
 import input.exception.ParseException;
+import input.visitor.ComponentNodeVisitor;
+import input.visitor.UnparseVisitor;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.AbstractMap;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class JSONParserTest
 {
-	public static ComponentNode runFigureParseTest(String filename)
+	private static final DefaultBuilder DEFAULT_BUILDER = new DefaultBuilder();
+	private static final DefaultBuilder GEOMETRY_BUILDER = new GeometryBuilder();
+
+	static ComponentNode runFigureParseTest(String filename)
 	{
 		JSONParser parser = new JSONParser();
 
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments(filename);
-		
-		return parser.parse(figureStr);
+
+		assertNull(parser.parse(figureStr, DEFAULT_BUILDER));
+		return parser.parse(figureStr, GEOMETRY_BUILDER);
+	}
+
+	static StringBuilder unparse(ComponentNode node) {
+		StringBuilder sb = new StringBuilder();
+		ComponentNodeVisitor unparseVisitor = new UnparseVisitor();
+
+		node.accept(unparseVisitor, new AbstractMap.SimpleEntry<>(sb, 0));
+
+		return sb;
+	}
+
+	static void test(String filename) {
+		ComponentNode node = JSONParserTest.runFigureParseTest(filename);
+
+		assertTrue(node instanceof FigureNode);
+
+		System.out.println(unparse(node));
 	}
 	
 	@Test
@@ -25,7 +51,7 @@ class JSONParserTest
 	{
 		JSONParser parser = new JSONParser();
 
-		assertThrows(ParseException.class, () -> { parser.parse("{}"); });
+		assertThrows(ParseException.class, () -> { parser.parse("{}", GEOMETRY_BUILDER); });
 	}
 
 	
@@ -36,13 +62,7 @@ class JSONParserTest
 	@Test
 	void single_triangle_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("single_triangle.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("single_triangle.json");
 	}
 	
 	/**
@@ -51,13 +71,7 @@ class JSONParserTest
 	@Test
 	void collinear_lines_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("collinear_line_segments.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("collinear_line_segments.json");
 	}
 	
 	/**
@@ -71,13 +85,7 @@ class JSONParserTest
 	@Test
 	void crossing_symmetric_triangle_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("crossing_symmetric_triangle.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("crossing_symmetric_triangle.json");
 	}
 	
 	/**
@@ -94,13 +102,7 @@ class JSONParserTest
 	@Test
 	void fully_connected_irregular_polygon_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("fully_connected_irregular_polygon.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("fully_connected_irregular_polygon.json");
 	}
 	
 	/**
@@ -112,13 +114,7 @@ class JSONParserTest
 	@Test
 	void bowtie_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("bowtie.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("bowtie.json");
 	}
 	
 	/*
@@ -130,13 +126,7 @@ class JSONParserTest
 	@Test
 	void bowtie_twist_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("bowtie_twist.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("bowtie_twist.json");
 	}
 	
 	/**
@@ -149,13 +139,7 @@ class JSONParserTest
 	@Test
 	void filled_dart_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("filled_dart.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("filled_dart.json");
 	}
 	
 	/*
@@ -168,13 +152,7 @@ class JSONParserTest
 	@Test
 	void pizza_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("pizza.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("pizza.json");
 	}
 	
 	/**
@@ -183,13 +161,7 @@ class JSONParserTest
 	@Test
 	void single_segment_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("single_segment.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("single_segment.json");
 	}
 	
 	/**
@@ -202,13 +174,7 @@ class JSONParserTest
 	@Test
 	void square_tri_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("square_tri.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("square_tri.json");
 	}
 	
 	/**
@@ -220,13 +186,7 @@ class JSONParserTest
 	@Test
 	void tri_snake_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("tri_snake.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("tri_snake.json");
 	}
 	
 	/**
@@ -238,13 +198,7 @@ class JSONParserTest
 	@Test
 	void tri_with_segment_test()
 	{
-		ComponentNode node = JSONParserTest.runFigureParseTest("tri_with_segment.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
-		System.out.println(sb);
+		test("tri_with_segment.json");
 	}
 }
 
