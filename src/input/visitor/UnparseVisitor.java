@@ -70,7 +70,7 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		
         sb.append("    ".repeat(level)).append("{\n");
 
-        for (Entry<PointNode, Set<PointNode>> entry : node.getAdjLists().entrySet()) 
+        for (Entry<PointNode, Set<PointNode>> entry : node.uniqueEntrySet())
         {
         	PointNode a = entry.getKey();
         	sb.append("    ".repeat(level + 1)).append(a.getName()).append(" :");
