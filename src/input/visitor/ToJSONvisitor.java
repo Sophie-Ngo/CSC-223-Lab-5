@@ -18,9 +18,7 @@ import java.util.Set;
  */
 public class ToJSONvisitor implements ComponentNodeVisitor {
     /**
-     * @param node
-     * @param o
-     * @return
+     * Returns a JSONObject representing a FigureNode
      */
     @Override
     public Object visitFigureNode(FigureNode node, Object o) {
@@ -38,9 +36,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
     }
 
     /**
-     * @param node
-     * @param o
-     * @return
+     * Returns a JSONArray representing a SegmentNodeDatabase
      */
     @Override
     public Object visitSegmentDatabaseNode(SegmentNodeDatabase node, Object o) {
@@ -64,9 +60,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
     }
 
     /**
-     * @param node
-     * @param o
-     * @return
+     * Dummy implementation, not needed
      */
     @Override
     public Object visitSegmentNode(SegmentNode node, Object o) {
@@ -74,9 +68,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
     }
 
     /**
-     * @param node
-     * @param o
-     * @return
+     * Returns a JSONObject representing a PointNode
      */
     @Override
     public Object visitPointNode(PointNode node, Object o) {
@@ -90,9 +82,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
     }
 
     /**
-     * @param node
-     * @param o
-     * @return
+     * Returns a JSONArray representing the PointNodeDatabase
      */
     @Override
     public Object visitPointNodeDatabase(PointNodeDatabase node, Object o) {

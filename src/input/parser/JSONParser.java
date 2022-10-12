@@ -111,6 +111,7 @@ public class JSONParser {
      * Creates an adjacency list as an ArrayList from the specified adjacency list in 
      * the segments JSONArray.
      * @param segment - the specified adjacency list
+     * @param points - PointNodeDatabase to search for points
      * @param segmentName - the name of the segment in the adjacency list
      * @return ArrayList adjacency list representing the same JSONArray adjacency list
      */
@@ -127,6 +128,7 @@ public class JSONParser {
     /**
      * Creates a PointNodeDatabase that represents the array of points.
      * @param points - JSONArray of points
+     * @param builder Builder to construct with
      * @return PointNodeDatabase representing this array
      */
     private PointNodeDatabase getPointNodeDatabase(JSONArray points, DefaultBuilder builder) {
@@ -135,6 +137,12 @@ public class JSONParser {
         return builder.buildPointDatabaseNode(list);
     }
 
+    /**
+     * Creates a list of points from a JSONArray
+     * @param points JSONArray representation of points to convert
+     * @param builder Builder to construct points with
+     * @return list of points
+     */
     private List<PointNode> buildPoints(JSONArray points, DefaultBuilder builder) {
         List<PointNode> list = new ArrayList<>();
 
@@ -152,6 +160,7 @@ public class JSONParser {
     /**
      * Creates a PointNode from a JSONObject that represents the point.
      * @param point - JSONObject representing the point
+     * @param builder Builder to construct point with
      * @return PointNode
      */
     private PointNode getPointNode(JSONObject point, DefaultBuilder builder) {
