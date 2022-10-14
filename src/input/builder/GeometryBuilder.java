@@ -9,6 +9,7 @@ import input.components.segment.SegmentNodeDatabase;
 import java.util.List;
 
 /**
+ * All object creation is delegated to this class.
  * @author brycenaddison
  * @created Wed Oct 12 2022
  */

@@ -93,6 +93,9 @@ public class PointNode implements ComponentNode {
         return this.getName() + "(" + this.getX() + ", " + this.getY() + ")";
     }
     
+    /**
+     * Accept the call to be visited by calling the appropriate visit method for this ComponentNode
+     */
     @Override
     public Object accept(ComponentNodeVisitor visitor, Object o)
     {

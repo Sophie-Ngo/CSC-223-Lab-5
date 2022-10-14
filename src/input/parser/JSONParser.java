@@ -94,13 +94,16 @@ public class JSONParser {
     private SegmentNodeDatabase getSegmentNodeDatabase(JSONArray segments, PointNodeDatabase points, DefaultBuilder builder) {
         SegmentNodeDatabase segmentData = builder.buildSegmentNodeDatabase();
 
+        // loop through each adjacency list in segments array
         for (int i = 0; i < segments.length(); i++) {
             JSONObject segment = segments.getJSONObject(i);
             String segmentName = segment.keys().next();
 
+            // get the point with the same name as SegmentName out of the given PointNodeDatabase
             PointNode from = getPoint(segmentName, points);
 
-            for (PointNode to: getAdjacencyList(segment, points, segmentName)) {
+            // for each PointNode in the adjacency list, add a segment to our SegmentNodeDatabase
+            for (PointNode to : getAdjacencyList(segment, points, segmentName)) {
                 builder.addSegmentToDatabase(segmentData, from, to);
             }
         }

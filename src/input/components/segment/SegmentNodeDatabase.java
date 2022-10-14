@@ -113,7 +113,7 @@ public class SegmentNodeDatabase implements ComponentNode {
     }
 
     /**
-     * Accept the call to be visited by calling the 
+     * Accept the call to be visited by calling the appropriate visit method for this ComponentNode
      */
     @Override
     public Object accept(ComponentNodeVisitor visitor, Object o) {
@@ -127,33 +127,21 @@ public class SegmentNodeDatabase implements ComponentNode {
         return this._adjLists.entrySet();
     }
 
+    /**
+     * Returns a copy of the database as a unique entry set
+     * (This excludes redundant segments; no AB and BA--one or the other)
+     * @return
+     */
     public Set<Entry<PointNode, Set<PointNode>>> uniqueEntrySet() {
         SegmentNodeDatabase db  = new SegmentNodeDatabase();
+        
+        // loop through all unique SegmentNodes in the database
         for (SegmentNode segment: this.asUniqueSegmentList()) {
+        	// only add this specific segment to the temp database
             db.addDirectedEdge(segment.getPoint1(), segment.getPoint2());
         }
+        
         return db.entrySet();
     }
-    /**
-     * TODO
-     * 
-     */
-//    @Override
-//    public void unparse(StringBuilder sb, int level) {
-//        sb.append("    ".repeat(level)).append("{\n");
-//
-//        for (Entry<PointNode, Set<PointNode>> entry : this._adjLists.entrySet()) {
-//
-//            PointNode a = entry.getKey();
-//            sb.append("    ".repeat(level + 1)).append(a.getName()).append(" :");
-//
-//            for (PointNode b : entry.getValue()) {
-//                sb.append(" ").append(b.getName());
-//            }
-//
-//            sb.append("\n");
-//        }
-//
-//        sb.append("    ".repeat(level)).append("}\n");
-//    }
+
 }

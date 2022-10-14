@@ -39,11 +39,12 @@ public class UnparseVisitorTest {
 		visitor.visitPointNodeDatabase(pdb, o);
 		
 		String expected = "    " + "{\n" +
-				"    " + new PointNode(0.0, 0.0) + "\n" +
-				"    " + new PointNode(1.0, 1.0) + "\n" +
-				"    " + new PointNode(2.0, 2.0) + "\n" +
+				"        " + new PointNode(0.0, 0.0) + "\n" +
+				"        " + new PointNode(1.0, 1.0) + "\n" +
+				"        " + new PointNode(2.0, 2.0) + "\n" +
 				"    " + "}\n" ;
 		String actual = sb.toString();
+		
 		assertEquals(expected, actual);
 	}
 	
@@ -59,10 +60,11 @@ public class UnparseVisitorTest {
 		
 		visitor.visitSegmentDatabaseNode(sdb, o);
 		
-		// TODO
-		// String expected = string without redundanct
+		String expected = "    " + "{\n" +
+				"        " + "B : A" + "\n" +
+				"    " + "}\n" ;
 		String actual = sb.toString();
-		//assertEquals(expected, actual);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -84,9 +86,7 @@ public class UnparseVisitorTest {
 		AbstractMap.SimpleEntry<StringBuilder, Integer> o = new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 1);
 		FigureNode node = new FigureNode(desc, pdb, sdb);
 		
-		visitor.visitFigureNode(node, o);
-		
-		System.out.print(sb.toString());
-		
+		// verify by eye via console output
+		System.out.println(visitor.visitFigureNode(node, o));
 	}
 }

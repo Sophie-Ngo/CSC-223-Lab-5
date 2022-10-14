@@ -61,7 +61,7 @@ public class UnparseVisitor implements ComponentNodeVisitor {
 	}
 
 	/**
-	 * Unparses a SegmentNodeDatabase by unparsing its adjacency list.
+	 * Unparses a SegmentNodeDatabase by unparsing its adjacency lists.
 	 */
 	@Override
 	public Object visitSegmentDatabaseNode(SegmentNodeDatabase node, Object o) {
@@ -73,10 +73,12 @@ public class UnparseVisitor implements ComponentNodeVisitor {
 
 		sb.append("    ".repeat(level)).append("{\n");
 
+		// use the database as a unique map (This excludes redundant segments; no AB and BA--one or the other)
 		for (Entry<PointNode, Set<PointNode>> entry : node.uniqueEntrySet()) {
 			PointNode a = entry.getKey();
 			sb.append("    ".repeat(level + 1)).append(a.getName()).append(" :");
 
+			// appends every name of the point 
 			for (PointNode b : entry.getValue()) {
 				sb.append(" ").append(b.getName());
 			}
@@ -84,9 +86,7 @@ public class UnparseVisitor implements ComponentNodeVisitor {
 			sb.append("\n");
 		}
 
-
 		sb.append("    ".repeat(level)).append("}\n");
-
 
 		return null;
 	}
@@ -119,6 +119,7 @@ public class UnparseVisitor implements ComponentNodeVisitor {
 
 		sb.append("    ".repeat(level)).append("{\n");
 
+		// for every PointNode in this database, unparse it 
 		for (PointNode p : node.getPoints()) {
 			p.accept(this, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, level + 1));
 		}

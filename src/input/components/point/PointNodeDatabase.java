@@ -108,30 +108,20 @@ public class PointNodeDatabase implements ComponentNode {
 
     }
 
+
     public PointNode getPoint(String name) {
         for (PointNode p: this._points) {
             if (p.getName().equals(name)) return p;
         }
         return null;
     }
+
+    /**
+     * Accept the call to be visited by calling the appropriate visit method for this ComponentNode
+     */
     @Override
     public Object accept(ComponentNodeVisitor visitor, Object o) {
     	return visitor.visitPointNodeDatabase(this, o);
     }
     
-    /**
-     * 
-     * Do not delete
-     */
-
-//    @Override
-//    public void unparse(StringBuilder sb, int level) {
-//        sb.append("    ".repeat(level)).append("{\n");
-//
-//        for (PointNode p : this._points) {
-//            p.unparse(sb, level + 1);
-//        }
-//
-//        sb.append("    ".repeat(level)).append("}\n");
-//    }
 }
