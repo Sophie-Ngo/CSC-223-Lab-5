@@ -10,19 +10,19 @@ import input.components.point.*;
 import input.components.segment.SegmentNode;
 import input.components.segment.SegmentNodeDatabase;
 
-//
-// A JSON file may contain:
-//
-// Figure:
-// Points
-// Segments
-//
+/**
+ * Defines the methods used to unparse ComponentNodes as a StringBuilder.
+ * 
+ * Note: visitFigureNode is the only method in this class to return anything. All other methods
+ * simply modify the input StringBuilder. 
+ */
 public class UnparseVisitor implements ComponentNodeVisitor {
 	/**
 	 * Unparses a FigureNode in the form of a StringBuilder that contains the completed parsed
 	 * FigureNode. This therefore includes all of the unparsed objects that a FigureNode holds. So,
 	 * the resulting StringBuilder also contains an unparsed PointNodeDatabase and
 	 * SegmentNodeDatabase.
+	 * @return StringBuilder that contains unparsed FigureNode
 	 */
 	@Override
 	public Object visitFigureNode(FigureNode node, Object o) {

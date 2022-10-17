@@ -9,7 +9,9 @@ import input.components.segment.SegmentNodeDatabase;
 import java.util.List;
 
 /**
- * All object creation is delegated to this class.
+ * All object creation is delegated to this class. Each method of this class 
+ * simply creates a new instance of the appropriate object, and any parameters required 
+ * for construction are passed by the building method.  
  * @author brycenaddison
  * @created Wed Oct 12 2022
  */

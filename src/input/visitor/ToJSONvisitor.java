@@ -50,7 +50,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 
             JSONArray list = new JSONArray();
             
-            // add each point in the values of the adj list to the temp JSONArray
+            // add the name of each point in the values of the adj list to the temp JSONArray
             for (PointNode point: entry.getValue()) {
                 list.put(point.getName());
             }
@@ -93,6 +93,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
     public Object visitPointNodeDatabase(PointNodeDatabase node, Object o) {
         JSONArray arr = new JSONArray();
 
+        // for each PointNode in the database, put its JSON representation in our JSONArray
         for (PointNode point: node.getPoints()) {
             arr.put(this.visitPointNode(point, null));
         }
