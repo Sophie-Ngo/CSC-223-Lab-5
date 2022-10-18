@@ -16,17 +16,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JSONParserTest
 {
-	private static final DefaultBuilder DEFAULT_BUILDER = new DefaultBuilder();
-	private static final DefaultBuilder GEOMETRY_BUILDER = new GeometryBuilder();
+	private static final JSONParser NULL_PARSER = new JSONParser(new DefaultBuilder());
+	private static final JSONParser PARSER = new JSONParser(new GeometryBuilder());
 
 	static ComponentNode runFigureParseTest(String filename)
 	{
-		JSONParser parser = new JSONParser();
-
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments(filename);
 
-		assertNull(parser.parse(figureStr, DEFAULT_BUILDER));
-		return parser.parse(figureStr, GEOMETRY_BUILDER);
+		assertNull(NULL_PARSER.parse(figureStr));
+		return PARSER.parse(figureStr);
 	}
 
 	static StringBuilder unparse(ComponentNode node) {
@@ -49,9 +47,7 @@ class JSONParserTest
 	@Test
 	void empty_json_string_test()
 	{
-		JSONParser parser = new JSONParser();
-
-		assertThrows(ParseException.class, () -> { parser.parse("{}", GEOMETRY_BUILDER); });
+		assertThrows(ParseException.class, () -> PARSER.parse("{}"));
 	}
 
 	

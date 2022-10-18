@@ -36,11 +36,13 @@ import java.util.Map;
  */
 public class JSONParser {
     protected ComponentNode _astRoot;
+    protected DefaultBuilder _builder;
 
     /**
      * Create a JSONParser object that initializes the instance variables.
      */
-    public JSONParser() {
+    public JSONParser(DefaultBuilder builder) {
+        _builder = builder;
         _astRoot = null;
     }
 
@@ -66,7 +68,7 @@ public class JSONParser {
      * @return - a FigureNode representing the JSON file
      * @throws ParseException
      */
-    public ComponentNode parse(String str, DefaultBuilder builder) throws ParseException {
+    public ComponentNode parse(String str) throws ParseException {
         // Parsing is accomplished via the JSONTokenizer class.
         JSONTokener tokenizer = new JSONTokener(str);
         JSONObject root = new JSONObject(tokenizer);
@@ -77,13 +79,13 @@ public class JSONParser {
 
         JSONArray points = getPoints(figure);
 
-        PointNodeDatabase pointData = getPointNodeDatabase(points, builder);
+        PointNodeDatabase pointData = getPointNodeDatabase(points);
 
         JSONArray segments = getSegments(figure);
 
-        SegmentNodeDatabase segmentData = getSegmentNodeDatabase(segments, pointData, builder);
+        SegmentNodeDatabase segmentData = getSegmentNodeDatabase(segments, pointData);
 
-        return builder.buildFigureNode(description, pointData, segmentData);
+        return _builder.buildFigureNode(description, pointData, segmentData);
     }
 
     /**
@@ -91,8 +93,8 @@ public class JSONParser {
      * @param segments - JSONArray of adjacency lists for each segment
      * @return SegmentNodeDatabase representing this array
      */
-    private SegmentNodeDatabase getSegmentNodeDatabase(JSONArray segments, PointNodeDatabase points, DefaultBuilder builder) {
-        SegmentNodeDatabase segmentData = builder.buildSegmentNodeDatabase();
+    private SegmentNodeDatabase getSegmentNodeDatabase(JSONArray segments, PointNodeDatabase points) {
+        SegmentNodeDatabase segmentData = _builder.buildSegmentNodeDatabase();
 
         // loop through each adjacency list in segments array
         for (int i = 0; i < segments.length(); i++) {
@@ -104,7 +106,7 @@ public class JSONParser {
 
             // for each PointNode in the adjacency list, add a segment to our SegmentNodeDatabase
             for (PointNode to : getAdjacencyList(segment, points, segmentName)) {
-                builder.addSegmentToDatabase(segmentData, from, to);
+                _builder.addSegmentToDatabase(segmentData, from, to);
             }
         }
         return segmentData;
@@ -131,28 +133,26 @@ public class JSONParser {
     /**
      * Creates a PointNodeDatabase that represents the array of points.
      * @param points - JSONArray of points
-     * @param builder Builder to construct with
      * @return PointNodeDatabase representing this array
      */
-    private PointNodeDatabase getPointNodeDatabase(JSONArray points, DefaultBuilder builder) {
-        List<PointNode> list = buildPoints(points, builder);
+    private PointNodeDatabase getPointNodeDatabase(JSONArray points) {
+        List<PointNode> list = buildPoints(points);
 
-        return builder.buildPointDatabaseNode(list);
+        return _builder.buildPointDatabaseNode(list);
     }
 
     /**
      * Creates a list of points from a JSONArray
      * @param points JSONArray representation of points to convert
-     * @param builder Builder to construct points with
      * @return list of points
      */
-    private List<PointNode> buildPoints(JSONArray points, DefaultBuilder builder) {
+    private List<PointNode> buildPoints(JSONArray points) {
         List<PointNode> list = new ArrayList<>();
 
         for (int i = 0; i < points.length(); i++) {
             JSONObject point = points.getJSONObject(i);
 
-            PointNode pointNode = getPointNode(point, builder);
+            PointNode pointNode = getPointNode(point);
 
             list.add(pointNode);
         }
@@ -163,15 +163,14 @@ public class JSONParser {
     /**
      * Creates a PointNode from a JSONObject that represents the point.
      * @param point - JSONObject representing the point
-     * @param builder Builder to construct point with
      * @return PointNode
      */
-    private PointNode getPointNode(JSONObject point, DefaultBuilder builder) {
+    private PointNode getPointNode(JSONObject point) {
         String name = getName(point);
         double x = getX(point);
         double y = getY(point);
 
-        return builder.buildPointNode(name, x, y);
+        return _builder.buildPointNode(name, x, y);
     }
 
     private JSONObject getFigure(JSONObject obj) {
